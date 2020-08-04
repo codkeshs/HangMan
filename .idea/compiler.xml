@@ -6,11 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="hw5-fariborz-bomberman-starter" />
+        <module name="Hangman" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="hw5-fariborz-bomberman-starter" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
