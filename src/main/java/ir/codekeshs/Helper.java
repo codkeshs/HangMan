@@ -24,9 +24,9 @@ public final class Helper {
         return button;
     }
 
-    public static Button gameButton(String s, String imageName,int x,int y) throws FileNotFoundException {
+    public static Button gameButton(String s, String imageName, int x, int y) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/resources/button-images/" + imageName + ".png"),
-                40,40,false,false);
+                40, 40, false, false);
         Button button = new Button(s, new ImageView(image));
         button.setShape(new Circle(20));
         button.setLayoutX(x);
@@ -58,7 +58,6 @@ public final class Helper {
     }
 
     public static String getCat(String name) {
-        int num = declareNum(name);
         List<String> cat = new ArrayList<>();
         try (
                 Scanner scanner = new Scanner(new BufferedReader
@@ -70,21 +69,7 @@ public final class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return cat.get(new Random().nextInt(num));
+        return cat.get(new Random().nextInt(cat.size()));
     }
 
-    private static int declareNum(String name) {
-        switch (name) {
-            case "animal":
-                return 500;
-            case "country":
-                return 196;
-            case "sport":
-                return 11;
-            case "thing":
-                return 16;
-            default:
-        }
-        return 0;
-    }
 }
