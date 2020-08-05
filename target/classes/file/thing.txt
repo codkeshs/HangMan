@@ -1,0 +1,16 @@
+TV
+Sofa
+cupboard
+bed
+mirror
+toothbrush
+toothpaste
+shower
+fridge
+microwave
+cooker
+table
+chairs
+computer
+chair
+bookshelf
