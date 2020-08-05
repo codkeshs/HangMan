@@ -1,13 +1,18 @@
 package ir.codekeshs;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public final class Helper {
 
@@ -32,8 +37,7 @@ public final class Helper {
     public static Background gameBG(String imageName, int x, int y) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/resources/backgrounds/" + imageName + ".jpg"),
                 x, y, false, false);
-        BackgroundImage bg = new BackgroundImage(image
-                , BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
+        BackgroundImage bg = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.DEFAULT, null);
         return new Background(bg);
     }
@@ -44,4 +48,43 @@ public final class Helper {
         return root;
     }
 
+    public static Button getButton(int row, int column, GridPane root) {
+        for (Node node : root.getChildren()) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                return (Button) node;
+            }
+        }
+        return null;
+    }
+
+    public static String getCat(String name) {
+        int num = declareNum(name);
+        List<String> cat = new ArrayList<>();
+        try (
+                Scanner scanner = new Scanner(new BufferedReader
+                        (new FileReader("src/main/resources/file/" + name + ".txt")));
+        ) {
+            while (scanner.hasNext()) {
+                cat.add(scanner.next());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cat.get(new Random().nextInt(num));
+    }
+
+    private static int declareNum(String name) {
+        switch (name) {
+            case "animal":
+                return 500;
+            case "country":
+                return 196;
+            case "sport":
+                return 11;
+            case "thing":
+                return 16;
+            default:
+        }
+        return 0;
+    }
 }

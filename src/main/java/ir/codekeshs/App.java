@@ -8,6 +8,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        SceneParent.setStage(stage);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("HangMan");
         stage.setScene(MenuScene.getScene());
@@ -17,5 +18,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

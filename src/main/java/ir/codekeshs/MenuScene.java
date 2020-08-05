@@ -39,8 +39,7 @@ public final class MenuScene extends SceneParent {
     }
 
     private static void handleButtons() {
-        start.setOnAction(e -> {});
+        start.setOnAction(e -> new Category().start());
         settings.setOnAction(e -> new SettingsStage());
     }
-
 }
