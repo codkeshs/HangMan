@@ -1,11 +1,12 @@
 package ir.codekeshs;
 
+import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
@@ -21,14 +22,11 @@ public class Category {
     }
 
     public void start() {
-        Pane pane = new Pane();
-        SceneParent.getStage().setScene(new Scene(pane, 800, 600, Color.rgb(250, 240, 240)));
         GridPane root = new GridPane();
+        SceneParent.getStage().setScene(new Scene(root, 800, 600, Color.rgb(250, 240, 240)));
+        root.setAlignment(Pos.CENTER);
         root.setHgap(10);
         root.setVgap(10);
-        pane.getChildren().add(root);
-        pane.setLayoutX(200);
-        pane.setLayoutY(150);
         makeButtons(root);
         choose(root);
     }
@@ -49,18 +47,14 @@ public class Category {
     }
 
     private void choose(GridPane root) {
-        Objects.requireNonNull(Helper.getButton(0, 0, root)).setOnAction(e -> {
-            System.out.println(Helper.getCat("animal"));
-        });
-        Objects.requireNonNull(Helper.getButton(1, 0, root)).setOnAction(e -> {
-            System.out.println(Helper.getCat("country"));
-        });
-        Objects.requireNonNull(Helper.getButton(0, 1, root)).setOnAction(e -> {
-            System.out.println(Helper.getCat("sport"));
-
-        });
-        Objects.requireNonNull(Helper.getButton(1, 1, root)).setOnAction(e -> {
-            System.out.println(Helper.getCat("thing"));
-        });
+        Game game = new Game();
+        Objects.requireNonNull(Helper.getButton(0, 0, root)).setOnAction(e ->
+                game.start(Helper.getCat("animal")));
+        Objects.requireNonNull(Helper.getButton(1, 0, root)).setOnAction(e ->
+                game.start(Helper.getCat("sport")));
+        Objects.requireNonNull(Helper.getButton(0, 1, root)).setOnAction(e ->
+                game.start(Helper.getCat("country")));
+        Objects.requireNonNull(Helper.getButton(1, 1, root)).setOnAction(e ->
+                game.start(Helper.getCat("thing")));
     }
 }
