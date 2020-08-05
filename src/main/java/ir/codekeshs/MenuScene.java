@@ -41,8 +41,6 @@ public final class MenuScene extends SceneParent {
     private static void handleButtons() {
         start.setOnAction(e -> {
             new Category().start();
-            // go to cat
-            // setting
         });
     }
 }
