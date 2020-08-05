@@ -8,7 +8,6 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -58,7 +57,6 @@ public final class Helper {
     }
 
     public static String getCat(String name) {
-        int num = declareNum(name);
         List<String> cat = new ArrayList<>();
         try (
                 Scanner scanner = new Scanner(new BufferedReader
@@ -70,21 +68,6 @@ public final class Helper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return cat.get(new Random().nextInt(num));
-    }
-
-    private static int declareNum(String name) {
-        switch (name) {
-            case "animal":
-                return 500;
-            case "country":
-                return 196;
-            case "sport":
-                return 11;
-            case "thing":
-                return 16;
-            default:
-        }
-        return 0;
+        return cat.get(new Random().nextInt(cat.size()));
     }
 }
