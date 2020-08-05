@@ -14,19 +14,20 @@ public final class MenuScene extends SceneParent {
     static {
         try {
             new MenuScene();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException ignored) {
         }
     }
 
+    private static Button settings;
     private static Button start;
 
     private MenuScene() throws FileNotFoundException {
         Pane root = Helper.gamePane();
         root.setBackground(Helper.gameBG("menu_bg", 800, 600));
-        setScene(new Scene(root, 800, 600, Color.rgb(240, 240, 240)));
-        start = Helper.gameButton("start new game", 300, 250);
-        root.getChildren().add(start);
+        setScene(new Scene(root, 800, 600));
+        start = Helper.gameButton("start new game", 300, 320);
+        settings = Helper.gameButton("", "settings", 360, 150);
+        root.getChildren().addAll(start, settings);
         handleButtons();
     }
 
@@ -39,8 +40,7 @@ public final class MenuScene extends SceneParent {
     }
 
     private static void handleButtons() {
-        start.setOnAction(e -> {
-            new Category().start();
-        });
+        start.setOnAction(e -> new Category().start());
+        settings.setOnAction(e -> new SettingsStage());
     }
 }

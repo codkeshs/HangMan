@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -20,6 +21,16 @@ public final class Helper {
         button.setLayoutX(x);
         button.setLayoutY(y);
         button.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
+        return button;
+    }
+
+    public static Button gameButton(String s, String imageName,int x,int y) throws FileNotFoundException {
+        Image image = new Image(new FileInputStream("src/main/resources/button-images/" + imageName + ".png"),
+                40,40,false,false);
+        Button button = new Button(s, new ImageView(image));
+        button.setShape(new Circle(20));
+        button.setLayoutX(x);
+        button.setLayoutY(y);
         return button;
     }
 
