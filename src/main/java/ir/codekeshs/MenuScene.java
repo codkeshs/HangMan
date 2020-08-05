@@ -22,6 +22,7 @@ public final class MenuScene extends SceneParent {
         } catch (FileNotFoundException ignored) {
         }
     }
+
     private static Button settings;
     private static Button start;
 

@@ -23,9 +23,9 @@ public final class Helper {
         return button;
     }
 
-    public static Button gameButton(String s, String imageName,int x,int y) throws FileNotFoundException {
+    public static Button gameButton(String s, String imageName, int x, int y) throws FileNotFoundException {
         Image image = new Image(new FileInputStream("src/main/resources/button-images/" + imageName + ".png"),
-                40,40,false,false);
+                40, 40, false, false);
         Button button = new Button(s, new ImageView(image));
         button.setShape(new Circle(20));
         button.setLayoutX(x);
@@ -70,4 +70,5 @@ public final class Helper {
         }
         return cat.get(new Random().nextInt(cat.size()));
     }
+
 }
