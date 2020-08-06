@@ -4,15 +4,17 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.FileNotFoundException;
+
 
 public class App extends Application {
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws FileNotFoundException {
         SceneParent.setStage(stage);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("HangMan");
-        stage.setScene(MenuScene.getScene());
+        stage.setScene(new MenuScene().getScene());
         stage.show();
     }
 

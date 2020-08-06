@@ -10,50 +10,40 @@ import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Objects;
 
 public class Category {
-    private final String url;
-    private String chosen;
+    private Scene scene;
 
     public Category() {
-        url = "src/main/resources/categories/";
-    }
-
-    public void start() {
         GridPane root = new GridPane();
-        SceneParent.getStage().setScene(new Scene(root, 800, 600, Color.rgb(250, 240, 240)));
+        setScene(new Scene(root, 800, 600, Color.rgb(250, 240, 240)));
         root.setAlignment(Pos.CENTER);
         root.setHgap(10);
         root.setVgap(10);
         makeButtons(root);
-        choose(root);
     }
 
     private void makeButtons(GridPane root) {
+        String url = "src/main/resources/button-images/";
         try {
-            Button animal = new Button("", new ImageView(new Image(new FileInputStream(url + "animal.png"))));
-            Button countries = new Button("", new ImageView(new Image(new FileInputStream(url + "countries.png"))));
-            Button sport = new Button("", new ImageView(new Image(new FileInputStream(url + "sport.png"))));
-            Button things = new Button("", new ImageView(new Image(new FileInputStream(url + "things.png"))));
-            root.add(animal, 0, 0);
-            root.add(countries, 0, 1);
-            root.add(sport, 1, 0);
-            root.add(things, 1, 1);
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    int number = i * 2 + j;
+                    Button button = new Button("", new ImageView(new Image(new FileInputStream(url + number + ".png"))));
+                    root.add(button, i, j);
+                    button.setOnAction(e -> new Game().start(Helper.getCat(number)));
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void choose(GridPane root) {
-        Game game = new Game();
-        Objects.requireNonNull(Helper.getButton(0, 0, root)).setOnAction(e ->
-                game.start(Helper.getCat("animal")));
-        Objects.requireNonNull(Helper.getButton(1, 0, root)).setOnAction(e ->
-                game.start(Helper.getCat("sport")));
-        Objects.requireNonNull(Helper.getButton(0, 1, root)).setOnAction(e ->
-                game.start(Helper.getCat("country")));
-        Objects.requireNonNull(Helper.getButton(1, 1, root)).setOnAction(e ->
-                game.start(Helper.getCat("thing")));
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 }

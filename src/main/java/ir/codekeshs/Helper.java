@@ -1,6 +1,5 @@
 package ir.codekeshs;
 
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,23 +46,12 @@ public final class Helper {
         return root;
     }
 
-    public static Button getButton(int row, int column, GridPane root) {
-        for (Node node : root.getChildren()) {
-            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-                return (Button) node;
-            }
-        }
-        return null;
-    }
-
-    public static String getCat(String name) {
+    public static String getCat(int name) {
         List<String> cat = new ArrayList<>();
-        try (
-                Scanner scanner = new Scanner(new BufferedReader
-                        (new FileReader("src/main/resources/file/" + name + ".txt")));
-        ) {
-            while (scanner.hasNext()) {
-                cat.add(scanner.next());
+        try (Scanner scanner = new Scanner(new BufferedReader(
+                new FileReader("src/main/resources/file/" + name + ".txt")))) {
+            while (scanner.hasNextLine()) {
+                cat.add(scanner.nextLine());
             }
         } catch (IOException e) {
             e.printStackTrace();
