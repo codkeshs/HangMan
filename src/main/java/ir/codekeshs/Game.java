@@ -2,6 +2,7 @@ package ir.codekeshs;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,11 +24,13 @@ public class Game {
     private int number;
     private int tryNumber;
     private BorderPane root;
+    private HBox hBox;
 
     public Game() {
         end = false;
         tryNumber = 0;
         root = new BorderPane();
+        hBox = new HBox();
     }
 
     public void start(String chosen) {
@@ -36,36 +39,40 @@ public class Game {
         SceneParent.getStage().setScene(new Scene(root, 800, 600));
         addKeyBut();
         try {
+            for (int i = 0; i < answer.length(); i++) {
+                hBox.getChildren().add(new StackPane(new ImageView(new Image(new FileInputStream(
+                        "src/main/resources/game/orange.png")))));
+            }
+            root.setCenter(hBox);
+            hBox.setAlignment(Pos.CENTER);
             guess(SceneParent.getStage().getScene());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void guess(Scene scene) throws IOException {
-        HBox hBox = new HBox();
-        for (int i = 0; i < answer.length(); i++) {
-            hBox.getChildren().add(new StackPane(new ImageView(new Image(new FileInputStream(
-                    "src/main/resources/game/orange.png")))));
+    public void guess(Scene scene) {
+        if (!end) {
+            scene.setOnKeyPressed(e -> doing(e.getText()));
         }
-        root.setCenter(hBox);
-        hBox.setAlignment(Pos.CENTER);
-        scene.setOnKeyPressed(e -> {
-            checkForEnd();
-            if (!end) {
-                tryNumber++;
-                String input = e.getText();
-                for (Integer i : where(input.charAt(0))) {
-                    ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
-                }
+    }
+
+    public void doing(String input) {
+        tryNumber++;
+        try {
+            for (Integer i : where(input.charAt(0))) {
+                ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
             }
-        });
+            checkForEnd();
+        } catch (StringIndexOutOfBoundsException e) {
+            // for keys like alt , ctrl , shift , enter , ..
+        }
     }
 
     public List<Integer> where(char input) {
         List<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < answer.length(); i++) {
-            if (answer.charAt(i) == input) {
+            if (answer.charAt(i) == input || answer.charAt(i) == input + ('a' - 'A')) {
                 indexes.add(i);
                 number--;
             }
@@ -83,29 +90,22 @@ public class Game {
     public void addKeyBut() {
         GridPane pane = new GridPane();
         root.setBottom(pane);
-        for (int i = 0; i < 13; i++) {
-            for (int j = 0; j < 2; j++) {
-                pane.add(new Button(Character.toString(65 + i + j)), i, j);
+        for (int i = 0, k = 0; i < 13; i++) {
+            for (int j = 0; j < 2; j++, k++) {
+                pane.add(new Button(Character.toString(65 + k)), i, j);
+
             }
         }
         pane.setHgap(5);
         pane.setVgap(5);
         pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(0,0,100,0));
+        pane.setPadding(new Insets(0, 0, 100, 0));
+        for (Node node : pane.getChildren()) {
+            ((Button) node).setOnAction(e -> {
+                System.out.println(((Button) node).getText());
+                doing(((Button) node).getText());
+
+            });
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
