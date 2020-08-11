@@ -4,6 +4,7 @@ import ir.codekeshs.Helper;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game extends Parent{
+public class Game extends Parent {
     private Scene scene;
     private final String answer;
     private boolean end;
@@ -43,7 +44,7 @@ public class Game extends Parent{
         addButtons();
     }
 
-    public void addBG(){
+    public void addBG() {
         try {
             for (int i = 0; i < answer.length(); i++) {
                 hBox.getChildren().add(new StackPane(new ImageView(new Image(new FileInputStream(
@@ -59,7 +60,6 @@ public class Game extends Parent{
     public void guess(Scene scene) {
         scene.setOnKeyPressed(e -> {
             if (!end && !e.getText().equals("")) {
-                System.out.println("fuck");
                 doing(e.getText());
             }
         });
@@ -69,6 +69,7 @@ public class Game extends Parent{
         for (Integer i : where(input.charAt(0))) {
             ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
         }
+        deletion(input.toUpperCase());
         checkForEnd();
     }
 
@@ -92,7 +93,7 @@ public class Game extends Parent{
             end = true;
             BorderPane pane = new BorderPane();
             String text;
-            if (number<=0){
+            if (number <= 0) {
                 text = "You Won!\nBe Kiram";
             } else {
                 text = "You Lost!\nKose Amat";
@@ -101,13 +102,14 @@ public class Game extends Parent{
             AnimationTimer animationTimer = new AnimationTimer() {
                 private final long time = System.currentTimeMillis();
                 private boolean sceneSet = false;
+
                 @Override
                 public void handle(long l) {
-                    if (System.currentTimeMillis()-time>=1000 && !sceneSet){
-                        getStage().setScene( new Scene(pane, 800, 600));
+                    if (System.currentTimeMillis() - time >= 1000 && !sceneSet) {
+                        getStage().setScene(new Scene(pane, 800, 600));
                         sceneSet = true;
                     }
-                    if (System.currentTimeMillis()-time>=4000){
+                    if (System.currentTimeMillis() - time >= 4000) {
                         getStage().setScene(Menu.getInstance().getScene());
                         stop();
                     }
@@ -128,7 +130,7 @@ public class Game extends Parent{
                 button.setOnAction(e -> {
                     if (!end) {
                         doing(button.getText());
-                        pane.getChildren().remove(button);
+//                        pane.getChildren().remove(button);
                     }
                 });
             }
@@ -145,9 +147,9 @@ public class Game extends Parent{
         pane.setAlignment(Pos.CENTER);
         Button back = new Button(" Back ");
         Button settings = Helper.gameButton("", "settings", 360, 150);
-        back.setOnAction(e->getStage().setScene(Menu.getInstance().getScene()));
+        back.setOnAction(e -> getStage().setScene(Menu.getInstance().getScene()));
         settings.setOnAction(e -> Settings.getInstance().makeStage());
-        pane.getChildren().addAll(back,settings);
+        pane.getChildren().addAll(back, settings);
     }
 
     private void animation(int index) {
@@ -155,6 +157,15 @@ public class Game extends Parent{
             root.setLeft(new ImageView(new Image(new FileInputStream(
                     url + +index + ".png"), 300, 350, false, false)));
         } catch (IOException ignored) {
+        }
+    }
+
+    public void deletion(String input) {
+        for (Node node : ((Pane) root.getBottom()).getChildren()) {
+            if (((Button) node).getText().equals(input)) {
+                ((Pane) root.getBottom()).getChildren().remove(node);
+                break;
+            }
         }
     }
 
