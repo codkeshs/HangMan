@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.io.FileInputStream;
 
@@ -53,7 +50,7 @@ public class Game extends Parent{
             }
             root.setRight(hBox);
             hBox.setAlignment(Pos.CENTER);
-            guess(Parent.getStage().getScene());
+            guess(scene);
         } catch (IOException ignored) {
         }
     }
@@ -61,6 +58,7 @@ public class Game extends Parent{
     public void guess(Scene scene) {
         scene.setOnKeyPressed(e -> {
             if (!end && !e.getText().equals("")) {
+                System.out.println("fuck");
                 doing(e.getText());
             }
         });
@@ -91,6 +89,8 @@ public class Game extends Parent{
     public void checkForEnd() {
         if (number <= 0 || tryNumber >= 5) {
             end = true;
+            BorderPane pane = new BorderPane();
+
         }
     }
 
