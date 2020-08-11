@@ -49,13 +49,6 @@ public class Menu extends Parent {
 
     private static void handleButtons() {
         start.setOnAction(e -> getStage().setScene(new Category().getScene()));
-        settings.setOnAction(e -> {
-            Stage settings = new Stage();
-            settings.initStyle(StageStyle.UTILITY);
-            settings.setTitle("Settings");
-            settings.initModality(Modality.APPLICATION_MODAL);
-            settings.setScene(new Settings().getScene());
-            settings.showAndWait();
-        });
+        settings.setOnAction(e -> Settings.getInstance().makeStage());
     }
 }

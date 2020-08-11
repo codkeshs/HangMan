@@ -1,5 +1,6 @@
 package ir.codekeshs.scenes;
 
+import ir.codekeshs.Helper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,31 +19,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
-    private String answer;
+public class Game extends Parent{
+    private final Scene scene;
+    private final String answer;
     private boolean end;
     private int number;
     private int tryNumber;
     private final BorderPane root;
-    private HBox hBox;
+    private final HBox hBox;
     private final String url;
 
 
-    public Game() {
+    public Game(String chosen) {
         end = false;
         tryNumber = 0;
         root = new BorderPane();
         root.setPadding(new Insets(50));
         hBox = new HBox();
         url = "src/main/resources/game/";
-        hBox = new HBox();
-    }
-
-    public void start(String chosen) {
+        scene = new Scene(root, 800, 600);
         answer = chosen;
         number = answer.length();
-        Parent.getStage().setScene(new Scene(root, 800, 600));
-        addKeyBut();
+        addKeys();
+        addBG();
+        addButtons();
+    }
+
+    public void addBG(){
         try {
             for (int i = 0; i < answer.length(); i++) {
                 hBox.getChildren().add(new StackPane(new ImageView(new Image(new FileInputStream(
@@ -51,8 +54,7 @@ public class Game {
             root.setRight(hBox);
             hBox.setAlignment(Pos.CENTER);
             guess(Parent.getStage().getScene());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
@@ -92,7 +94,7 @@ public class Game {
         }
     }
 
-    public void addKeyBut() {
+    public void addKeys() {
         GridPane pane = new GridPane();
         root.setBottom(pane);
         for (int i = 0, k = 0; i < 13; i++) {
@@ -113,11 +115,26 @@ public class Game {
         pane.setPadding(new Insets(0, 0, 100, 0));
     }
 
+    public void addButtons() {
+        HBox pane = new HBox();
+        root.setTop(pane);
+        pane.setAlignment(Pos.CENTER);
+        Button back = new Button(" Back ");
+        Button settings = Helper.gameButton("", "settings", 360, 150);
+        back.setOnAction(e->getStage().setScene(Menu.getInstance().getScene()));
+        settings.setOnAction(e -> Settings.getInstance().makeStage());
+        pane.getChildren().addAll(back,settings);
+    }
+
     private void animation(int index) {
         try {
             root.setLeft(new ImageView(new Image(new FileInputStream(
                     url + +index + ".png"), 300, 350, false, false)));
         } catch (IOException ignored) {
         }
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }
