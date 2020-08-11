@@ -2,7 +2,6 @@ package ir.codekeshs;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,10 +13,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 public class Game {
@@ -25,9 +23,10 @@ public class Game {
     private boolean end;
     private int number;
     private int tryNumber;
-    private BorderPane root;
+    private final BorderPane root;
     private HBox hBox;
-    private String url;
+    private final String url;
+
 
     public Game() {
         end = false;
@@ -36,6 +35,7 @@ public class Game {
         root.setPadding(new Insets(50));
         hBox = new HBox();
         url = "src/main/resources/game/";
+        hBox = new HBox();
     }
 
     public void start(String chosen) {
@@ -105,6 +105,7 @@ public class Game {
                         pane.getChildren().remove(button);
                     }
                 });
+                pane.add(new Button(Character.toString(65 + k)), i, j);
             }
         }
         pane.setHgap(5);
