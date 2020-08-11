@@ -1,12 +1,12 @@
-package ir.codekeshs;
+package ir.codekeshs.scenes;
 
 import javafx.stage.Stage;
 
-public class SceneParent {
+public class Parent {
     private static Stage stage;
 
     public static void setStage(Stage stage) {
-        SceneParent.stage = stage;
+        Parent.stage = stage;
     }
 
     public static Stage getStage() {

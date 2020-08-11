@@ -1,4 +1,4 @@
-package ir.codekeshs;
+package ir.codekeshs.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

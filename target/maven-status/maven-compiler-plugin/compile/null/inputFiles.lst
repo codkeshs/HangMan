@@ -1,8 +1,8 @@
-D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\SceneParent.java
 D:\Work\Summer\Hangman\src\main\java\module-info.java
 D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\App.java
-D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\SettingsScene.java
-D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\Game.java
-D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\MenuScene.java
-D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\Category.java
+D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\scenes\Menu.java
+D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\scenes\Settings.java
+D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\scenes\Game.java
+D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\scenes\Category.java
 D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\Helper.java
+D:\Work\Summer\Hangman\src\main\java\ir\codekeshs\scenes\Parent.java

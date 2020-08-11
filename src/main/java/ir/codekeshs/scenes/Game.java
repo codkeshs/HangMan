@@ -1,4 +1,4 @@
-package ir.codekeshs;
+package ir.codekeshs.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,7 +41,7 @@ public class Game {
     public void start(String chosen) {
         answer = chosen;
         number = answer.length();
-        SceneParent.getStage().setScene(new Scene(root, 800, 600));
+        Parent.getStage().setScene(new Scene(root, 800, 600));
         addKeyBut();
         try {
             for (int i = 0; i < answer.length(); i++) {
@@ -50,7 +50,7 @@ public class Game {
             }
             root.setRight(hBox);
             hBox.setAlignment(Pos.CENTER);
-            guess(SceneParent.getStage().getScene());
+            guess(Parent.getStage().getScene());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +105,6 @@ public class Game {
                         pane.getChildren().remove(button);
                     }
                 });
-                pane.add(new Button(Character.toString(65 + k)), i, j);
             }
         }
         pane.setHgap(5);
@@ -117,7 +116,7 @@ public class Game {
     private void animation(int index) {
         try {
             root.setLeft(new ImageView(new Image(new FileInputStream(
-                    url+ + index + ".png"),300,350,false,false)));
+                    url + +index + ".png"), 300, 350, false, false)));
         } catch (IOException ignored) {
         }
     }
