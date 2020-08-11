@@ -1,6 +1,7 @@
 package ir.codekeshs.scenes;
 
 import ir.codekeshs.Helper;
+import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends Parent{
-    private final Scene scene;
+    private Scene scene;
     private final String answer;
     private boolean end;
     private int number;
@@ -90,6 +91,29 @@ public class Game extends Parent{
         if (number <= 0 || tryNumber >= 5) {
             end = true;
             BorderPane pane = new BorderPane();
+            String text;
+            if (number<=0){
+                text = "You Won!\nBe Kiram";
+            } else {
+                text = "You Lost!\nKose Amat";
+            }
+            pane.setCenter(new Label(text));
+            AnimationTimer animationTimer = new AnimationTimer() {
+                private final long time = System.currentTimeMillis();
+                private boolean sceneSet = false;
+                @Override
+                public void handle(long l) {
+                    if (System.currentTimeMillis()-time>=1000 && !sceneSet){
+                        getStage().setScene( new Scene(pane, 800, 600));
+                        sceneSet = true;
+                    }
+                    if (System.currentTimeMillis()-time>=4000){
+                        getStage().setScene(Menu.getInstance().getScene());
+                        stop();
+                    }
+                }
+            };
+            animationTimer.start();
 
         }
     }
