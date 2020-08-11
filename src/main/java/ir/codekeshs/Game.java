@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,8 +20,8 @@ public class Game {
     private boolean end;
     private int number;
     private int tryNumber;
-    private BorderPane root;
-    private HBox hBox;
+    private final BorderPane root;
+    private final HBox hBox;
 
     public Game() {
         end = false;
@@ -52,17 +49,24 @@ public class Game {
     }
 
     public void guess(Scene scene) {
-        if (!end) {
-            scene.setOnKeyPressed(e -> doing(e.getText()));
-        }
+        scene.setOnKeyPressed(e -> {
+            if (!end) {
+                doing(e.getText());
+            }
+        });
     }
 
     public void doing(String input) {
-        tryNumber++;
         try {
-            for (Integer i : where(input.charAt(0))) {
-                ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
+            if (where(input.charAt(0)).size() == 0) {
+                tryNumber++;
             }
+            for (Integer i : where(input.charAt(0))) {
+                if (((StackPane) hBox.getChildren().get(i)).getChildren().size() != 2) {
+                    ((StackPane) hBox.getChildren().get(i)).getChildren().add(new Label(input.toUpperCase()));
+                }
+            }
+            deletion(input.toUpperCase());
             checkForEnd();
         } catch (StringIndexOutOfBoundsException e) {
             // for keys like alt , ctrl , shift , enter , ..
@@ -93,7 +97,6 @@ public class Game {
         for (int i = 0, k = 0; i < 13; i++) {
             for (int j = 0; j < 2; j++, k++) {
                 pane.add(new Button(Character.toString(65 + k)), i, j);
-
             }
         }
         pane.setHgap(5);
@@ -102,10 +105,19 @@ public class Game {
         pane.setPadding(new Insets(0, 0, 100, 0));
         for (Node node : pane.getChildren()) {
             ((Button) node).setOnAction(e -> {
-                System.out.println(((Button) node).getText());
-                doing(((Button) node).getText());
-
+                if (!end) {
+                    doing(((Button) node).getText());
+                }
             });
+        }
+    }
+
+    public void deletion(String input) {
+        for (Node node : ((Pane) root.getBottom()).getChildren()) {
+            if (((Button) node).getText().equals(input)) {
+                ((Pane) root.getBottom()).getChildren().remove(node);
+                break;
+            }
         }
     }
 }
