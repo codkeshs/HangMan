@@ -4,6 +4,7 @@ import ir.codekeshs.Helper;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,7 +60,6 @@ public class Game extends Parent{
     public void guess(Scene scene) {
         scene.setOnKeyPressed(e -> {
             if (!end && !e.getText().equals("")) {
-                System.out.println("fuck");
                 doing(e.getText());
             }
         });
