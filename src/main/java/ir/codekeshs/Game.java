@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import ir.codekeshs.scenes.Parent;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class Game {
     public void start(String chosen) {
         answer = chosen;
         number = answer.length();
-        SceneParent.getStage().setScene(new Scene(root, 800, 600));
+        Parent.getStage().setScene(new Scene(root, 800, 600));
         addKeyBut();
         try {
             for (int i = 0; i < answer.length(); i++) {
@@ -42,7 +43,7 @@ public class Game {
             }
             root.setCenter(hBox);
             hBox.setAlignment(Pos.CENTER);
-            guess(SceneParent.getStage().getScene());
+            guess(Parent.getStage().getScene());
         } catch (IOException e) {
             e.printStackTrace();
         }

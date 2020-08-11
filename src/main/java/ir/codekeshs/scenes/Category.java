@@ -1,4 +1,4 @@
-package ir.codekeshs;
+package ir.codekeshs.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,12 +11,12 @@ import javafx.scene.paint.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Category {
-    private Scene scene;
+public class Category extends Parent {
+    private final Scene scene;
 
     public Category() {
         GridPane root = new GridPane();
-        setScene(new Scene(root, 800, 600, Color.rgb(250, 240, 240)));
+        scene = new Scene(root, 800, 600, Color.rgb(250, 240, 240));
         root.setAlignment(Pos.CENTER);
         root.setHgap(10);
         root.setVgap(10);
@@ -31,7 +31,7 @@ public class Category {
                     int number = i * 2 + j;
                     Button button = new Button("", new ImageView(new Image(new FileInputStream(url + number + ".png"))));
                     root.add(button, i, j);
-                    button.setOnAction(e -> new Game().start("monkey"));
+                    button.setOnAction(e -> getStage().setScene(new Game("monkey").getScene()));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -41,9 +41,5 @@ public class Category {
 
     public Scene getScene() {
         return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
     }
 }

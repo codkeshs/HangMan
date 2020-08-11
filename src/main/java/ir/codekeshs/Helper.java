@@ -22,9 +22,13 @@ public final class Helper {
         return button;
     }
 
-    public static Button gameButton(String s, String imageName, int x, int y) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("src/main/resources/button-images/" + imageName + ".png"),
-                40, 40, false, false);
+    public static Button gameButton(String s, String imageName, int x, int y) {
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("src/main/resources/button-images/" + imageName + ".png"),
+                    40, 40, false, false);
+        } catch (FileNotFoundException ignored) {
+        }
         Button button = new Button(s, new ImageView(image));
         button.setShape(new Circle(20));
         button.setLayoutX(x);
@@ -32,9 +36,14 @@ public final class Helper {
         return button;
     }
 
-    public static Background gameBG(String imageName, int x, int y) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("src/main/resources/backgrounds/" + imageName + ".jpg"),
-                x, y, false, false);
+    public static Background gameBG(String imageName, int x, int y) {
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("src/main/resources/backgrounds/" + imageName + ".jpg"),
+                    x, y, false, false);
+        } catch (FileNotFoundException ignored) {
+        }
+        assert image != null;
         BackgroundImage bg = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.DEFAULT, null);
         return new Background(bg);

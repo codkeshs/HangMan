@@ -1,4 +1,4 @@
-package ir.codekeshs;
+package ir.codekeshs.scenes;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,14 +7,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
-public class SettingsScene extends SceneParent {
-
+public class Settings extends Parent {
+    private final static Settings instance = new Settings();
     private final Scene scene;
     private static MediaPlayer mediaPlayer;
 
-    public SettingsScene() {
+    private Settings() {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
         root.setStyle("-fx-border-width: 0 0 5 0;");
@@ -29,10 +32,23 @@ public class SettingsScene extends SceneParent {
     }
 
     public static void setMediaPlayer(MediaPlayer mediaPlayer) {
-        SettingsScene.mediaPlayer = mediaPlayer;
+        Settings.mediaPlayer = mediaPlayer;
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    public static Settings getInstance(){
+        return instance;
+    }
+
+    public void makeStage(){
+        Stage settings = new Stage();
+        settings.initStyle(StageStyle.UTILITY);
+        settings.setTitle("Settings");
+        settings.initModality(Modality.APPLICATION_MODAL);
+        settings.setScene(scene);
+        settings.showAndWait();
     }
 }

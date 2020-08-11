@@ -1,2 +1,7 @@
-ir\codekeshs\Game.class
-ir\codekeshs\SettingsScene.class
+ir\codekeshs\scenes\Category.class
+ir\codekeshs\scenes\Game.class
+ir\codekeshs\Helper.class
+ir\codekeshs\scenes\Menu.class
+ir\codekeshs\App.class
+ir\codekeshs\scenes\Parent.class
+ir\codekeshs\scenes\Settings.class
