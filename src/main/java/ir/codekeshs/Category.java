@@ -31,7 +31,7 @@ public class Category {
                     int number = i * 2 + j;
                     Button button = new Button("", new ImageView(new Image(new FileInputStream(url + number + ".png"))));
                     root.add(button, i, j);
-                    button.setOnAction(e -> new Game().start(Helper.getCat(number)));
+                    button.setOnAction(e -> new Game().start("monkey"));
                 }
             }
         } catch (FileNotFoundException e) {

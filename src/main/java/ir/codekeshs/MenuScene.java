@@ -26,8 +26,8 @@ public class MenuScene extends SceneParent {
         scene = new Scene(root, 800, 600);
         start = Helper.gameButton("start new game", 300, 320);
         settings = Helper.gameButton("", "settings", 360, 150);
-        MediaView mediaView = startSong();
-        root.getChildren().addAll(start, settings, mediaView);
+//        MediaView mediaView = startSong();
+        root.getChildren().addAll(start, settings);
         handleButtons();
     }
 
