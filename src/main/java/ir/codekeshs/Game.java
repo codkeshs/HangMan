@@ -1,11 +1,14 @@
 package ir.codekeshs;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -31,8 +34,7 @@ public class Game {
         answer = chosen;
         number = answer.length();
         SceneParent.getStage().setScene(new Scene(root, 800, 600));
-        Label label = new Label(chosen);
-        root.getChildren().add(label);
+        addKeyBut();
         try {
             guess(SceneParent.getStage().getScene());
         } catch (IOException e) {
@@ -77,4 +79,33 @@ public class Game {
             end = true;
         }
     }
+
+    public void addKeyBut() {
+        GridPane pane = new GridPane();
+        root.setBottom(pane);
+        for (int i = 0; i < 13; i++) {
+            for (int j = 0; j < 2; j++) {
+                pane.add(new Button(Character.toString(65 + i + j)), i, j);
+            }
+        }
+        pane.setHgap(5);
+        pane.setVgap(5);
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(0,0,100,0));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
