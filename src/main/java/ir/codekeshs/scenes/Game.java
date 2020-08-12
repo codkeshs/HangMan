@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 
@@ -35,6 +36,7 @@ public class Game extends Parent {
         end = false;
         tryNumber = 0;
         root = new BorderPane();
+        root.setBackground(Helper.gameBG("game", 800, 600));
         root.setPadding(new Insets(50));
         hBox = new HBox();
         url = "src/main/resources/game/";
@@ -94,14 +96,15 @@ public class Game extends Parent {
     public void checkForEnd() {
         if (name.size() == 0 || tryNumber == 5) {
             end = true;
-            BorderPane pane = new BorderPane();
+            Pane pane = new Pane();
+            pane.setBackground(Helper.gameBG("results", 800, 600));
             String text;
             if (name.size() == 0) {
-                text = "You Won!\nBe Kiram";
+                text = "You Won!";
             } else {
                 text = "You Lost!\nThe answer was " + answer;
             }
-            pane.setCenter(new Label(text));
+            pane.getChildren().add(Helper.gameText(text,20,200,300, Color.BLUE));
             AnimationTimer animationTimer = new AnimationTimer() {
                 private final long time = System.currentTimeMillis();
                 private boolean sceneSet = false;
@@ -131,6 +134,7 @@ public class Game extends Parent {
                 pane.add(button, i, j);
                 button.setOnAction(e -> {
                     if (!end) {
+                        System.out.println(button.getText());
                         doing(button.getText());
                     }
                 });

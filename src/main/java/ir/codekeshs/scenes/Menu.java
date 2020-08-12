@@ -21,7 +21,7 @@ public class Menu extends Parent {
 
     private Menu() {
         Pane root = Helper.gamePane();
-        root.setBackground(Helper.gameBG("menu_bg", 800, 600));
+        root.setBackground(Helper.gameBG("menu", 800, 600));
         scene = new Scene(root, 800, 600);
         start = Helper.gameButton("start new game", 300, 320);
         settings = Helper.gameButton("", "settings", 360, 150);

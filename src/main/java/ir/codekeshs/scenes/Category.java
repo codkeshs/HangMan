@@ -17,6 +17,7 @@ public class Category extends Parent {
 
     public Category() {
         GridPane root = new GridPane();
+        root.setBackground(Helper.gameBG("category", 800, 600));
         scene = new Scene(root, 800, 600, Color.rgb(250, 240, 240));
         root.setAlignment(Pos.CENTER);
         root.setHgap(10);
@@ -33,7 +34,7 @@ public class Category extends Parent {
                     Button button = new Button("", new ImageView(new Image(
                             new FileInputStream(url + number + ".png"))));
                     root.add(button, i, j);
-                    button.setOnAction(e -> getStage().setScene(new Game(Helper.getCat(number)).getScene()));
+                    button.setOnAction(e -> getStage().setScene(new Game("cat").getScene()));
                 }
             }
         } catch (FileNotFoundException e) {
