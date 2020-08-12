@@ -10,6 +10,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -31,9 +32,10 @@ public class Menu extends Parent {
     }
 
     public static MediaView startSong() {
-        Media media = new Media(new File("src/main/resources/sound/song.mp3").toURI().toString());
+        Media media = new Media(new File("src/main/resources/audio/song.mp3").toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         Settings.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.play();
         mediaPlayer.setVolume(0.5);
         return new MediaView(mediaPlayer);
