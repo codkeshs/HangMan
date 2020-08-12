@@ -1,5 +1,6 @@
 package ir.codekeshs.scenes;
 
+import ir.codekeshs.Helper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class Settings extends Parent {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
         root.setStyle("-fx-border-width: 0 0 5 0;");
+        root.setBackground(Helper.gameBG("settings", 200, 200));
         Label label = new Label("Volume: ");
         Slider slider = new Slider(0, 1, 0.5);
         scene = new Scene(root, 200, 200);
@@ -33,10 +35,6 @@ public class Settings extends Parent {
 
     public static void setMediaPlayer(MediaPlayer mediaPlayer) {
         Settings.mediaPlayer = mediaPlayer;
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     public static Settings getInstance(){

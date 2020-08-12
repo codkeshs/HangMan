@@ -10,15 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Game extends Parent {
     private final Scene scene;
@@ -29,12 +28,15 @@ public class Game extends Parent {
     private final HBox hBox;
     private final String url;
     private final List<String> name;
+    private final Set<String> pressedKeys;
 
     public Game(String chosen) {
+        pressedKeys = new HashSet<>();
         name = new LinkedList<>(Arrays.asList(chosen.split("")));
         end = false;
         tryNumber = 0;
         root = new BorderPane();
+        root.setBackground(Helper.gameBG("game", 800, 600));
         root.setPadding(new Insets(50));
         hBox = new HBox();
         url = "src/main/resources/game/";
@@ -59,9 +61,12 @@ public class Game extends Parent {
     }
 
     public void guess(Scene scene) {
-        scene.setOnKeyPressed(e -> {
-            if (!end && !e.getText().equals("")) {
-                doing(e.getText());
+        scene.setOnKeyPressed(keyEvent -> {
+            String text = keyEvent.getText().toUpperCase();
+            System.out.println(text);
+            if (!end && !keyEvent.getText().equals("") && !pressedKeys.contains(text)) {
+                doing(text);
+                pressedKeys.add(text);
             }
         });
     }
@@ -81,10 +86,11 @@ public class Game extends Parent {
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == input || answer.charAt(i) == input + ('a' - 'A')) {
                 indexes.add(i);
-                name.remove(Character.toString(input));
+                name.remove(Character.toString(input).toLowerCase());
+                name.remove(Character.toString(input).toUpperCase());
             }
         }
-        if (indexes.isEmpty()) {
+        if (indexes.isEmpty() && Character.isLetter(input)) {
             tryNumber++;
             animation(tryNumber);
         }
@@ -94,14 +100,15 @@ public class Game extends Parent {
     public void checkForEnd() {
         if (name.size() == 0 || tryNumber == 5) {
             end = true;
-            BorderPane pane = new BorderPane();
+            Pane pane = new Pane();
+            pane.setBackground(Helper.gameBG("results", 800, 600));
             String text;
             if (name.size() == 0) {
-                text = "You Won!\nBe Kiram";
+                text = "You Won!";
             } else {
-                text = "You Lost!\nKose Amat";
+                text = "You Lost!\nThe answer was " + answer;
             }
-            pane.setCenter(new Label(text));
+            pane.getChildren().add(Helper.gameText(text,20,200,300, Color.BLUE));
             AnimationTimer animationTimer = new AnimationTimer() {
                 private final long time = System.currentTimeMillis();
                 private boolean sceneSet = false;
@@ -130,8 +137,10 @@ public class Game extends Parent {
                 Button button = new Button(Character.toString(65 + k));
                 pane.add(button, i, j);
                 button.setOnAction(e -> {
-                    if (!end) {
-                        doing(button.getText());
+                    String text = button.getText().toUpperCase();
+                    if (!end && !pressedKeys.contains(text)) {
+                        pressedKeys.add(text);
+                        doing(text);
                     }
                 });
             }

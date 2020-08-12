@@ -1,10 +1,16 @@
 package ir.codekeshs;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,6 +40,15 @@ public final class Helper {
         button.setLayoutX(x);
         button.setLayoutY(y);
         return button;
+    }
+
+    public static Text gameText(String s, int size, int x, int y, Paint paint) {
+        Text text = new Text(s);
+        text.setX(x);
+        text.setY(y);
+        text.setFill(paint);
+        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, size));
+        return text;
     }
 
     public static Background gameBG(String imageName, int x, int y) {
