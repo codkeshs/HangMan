@@ -16,20 +16,22 @@ import java.io.FileInputStream;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Game extends Parent {
     private final Scene scene;
     private final String answer;
     private boolean end;
-    private int number;
     private int tryNumber;
     private final BorderPane root;
     private final HBox hBox;
     private final String url;
-
+    private final List<String> name;
 
     public Game(String chosen) {
+        name = new LinkedList<>(Arrays.asList(chosen.split("")));
         end = false;
         tryNumber = 0;
         root = new BorderPane();
@@ -38,10 +40,9 @@ public class Game extends Parent {
         url = "src/main/resources/game/";
         scene = new Scene(root, 800, 600);
         answer = chosen;
-        number = answer.length();
         addKeys();
         addBG();
-        addButtons();
+        settingButtons();
     }
 
     public void addBG() {
@@ -67,7 +68,9 @@ public class Game extends Parent {
 
     public void doing(String input) {
         for (Integer i : where(input.charAt(0))) {
-            ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
+            if (((StackPane) (hBox.getChildren().get(i))).getChildren().size() != 2) {
+                ((StackPane) (hBox.getChildren().get(i))).getChildren().add(new Label(input));
+            }
         }
         deletion(input.toUpperCase());
         checkForEnd();
@@ -78,7 +81,7 @@ public class Game extends Parent {
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == input || answer.charAt(i) == input + ('a' - 'A')) {
                 indexes.add(i);
-                number--;
+                name.remove(Character.toString(input));
             }
         }
         if (indexes.isEmpty()) {
@@ -89,11 +92,11 @@ public class Game extends Parent {
     }
 
     public void checkForEnd() {
-        if (number <= 0 || tryNumber >= 5) {
+        if (name.size() == 0 || tryNumber == 5) {
             end = true;
             BorderPane pane = new BorderPane();
             String text;
-            if (number <= 0) {
+            if (name.size() == 0) {
                 text = "You Won!\nBe Kiram";
             } else {
                 text = "You Lost!\nThe answer was " + answer;
@@ -116,7 +119,6 @@ public class Game extends Parent {
                 }
             };
             animationTimer.start();
-
         }
     }
 
@@ -130,7 +132,6 @@ public class Game extends Parent {
                 button.setOnAction(e -> {
                     if (!end) {
                         doing(button.getText());
-//                        pane.getChildren().remove(button);
                     }
                 });
             }
@@ -141,15 +142,16 @@ public class Game extends Parent {
         pane.setPadding(new Insets(0, 0, 100, 0));
     }
 
-    public void addButtons() {
-        HBox pane = new HBox();
-        root.setTop(pane);
-        pane.setAlignment(Pos.CENTER);
+    public void settingButtons() {
+        BorderPane borderPane = new BorderPane();
         Button back = new Button(" Back ");
         Button settings = Helper.gameButton("", "settings", 360, 150);
         back.setOnAction(e -> getStage().setScene(Menu.getInstance().getScene()));
         settings.setOnAction(e -> Settings.getInstance().makeStage());
-        pane.getChildren().addAll(back, settings);
+        borderPane.setLeft(back);
+        borderPane.setRight(settings);
+        root.setTop(borderPane);
+
     }
 
     private void animation(int index) {
