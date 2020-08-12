@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game extends Parent {
-    private Scene scene;
+    private final Scene scene;
     private final String answer;
     private boolean end;
     private int number;
@@ -96,7 +96,7 @@ public class Game extends Parent {
             if (number <= 0) {
                 text = "You Won!\nBe Kiram";
             } else {
-                text = "You Lost!\nKose Amat";
+                text = "You Lost!\nThe answer was " + answer;
             }
             pane.setCenter(new Label(text));
             AnimationTimer animationTimer = new AnimationTimer() {

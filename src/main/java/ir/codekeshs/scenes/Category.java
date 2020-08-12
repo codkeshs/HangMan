@@ -1,5 +1,6 @@
 package ir.codekeshs.scenes;
 
+import ir.codekeshs.Helper;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,9 +30,10 @@ public class Category extends Parent {
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 2; j++) {
                     int number = i * 2 + j;
-                    Button button = new Button("", new ImageView(new Image(new FileInputStream(url + number + ".png"))));
+                    Button button = new Button("", new ImageView(new Image(
+                            new FileInputStream(url + number + ".png"))));
                     root.add(button, i, j);
-                    button.setOnAction(e -> getStage().setScene(new Game("monkey").getScene()));
+                    button.setOnAction(e -> getStage().setScene(new Game(Helper.getCat(number)).getScene()));
                 }
             }
         } catch (FileNotFoundException e) {
