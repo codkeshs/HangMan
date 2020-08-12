@@ -6,7 +6,7 @@ Bangladesh
 Barbados
 Belgium
 Bolivia
-Bosnia-Herzegovina
+Bosnia
 Brazil
 Cameroon
 Canada
@@ -31,8 +31,6 @@ Italy
 Jamaica
 Japan
 Kenya
-Korea-North
-Korea-South
 Kuwait
 Laos
 Lebanon
@@ -54,7 +52,7 @@ Romania
 Russia
 Serbia
 Slovakia
-South-Africa
+South
 Sudan
 Spain
 Sudan
@@ -66,8 +64,6 @@ Thailand
 Turkey
 Turkmenistan
 Uganda
-United-Kingdom
-United-States
 Uzbekistan
 Vietnam
 Yemen
