@@ -42,7 +42,7 @@ public class Game extends Parent {
         answer = chosen;
         addKeys();
         addBG();
-        addButtons();
+        settingButtons();
     }
 
     public void addBG() {
@@ -142,15 +142,16 @@ public class Game extends Parent {
         pane.setPadding(new Insets(0, 0, 100, 0));
     }
 
-    public void addButtons() {
-        HBox pane = new HBox();
-        root.setTop(pane);
-        pane.setAlignment(Pos.CENTER);
+    public void settingButtons() {
+        BorderPane borderPane = new BorderPane();
         Button back = new Button(" Back ");
         Button settings = Helper.gameButton("", "settings", 360, 150);
         back.setOnAction(e -> getStage().setScene(Menu.getInstance().getScene()));
         settings.setOnAction(e -> Settings.getInstance().makeStage());
-        pane.getChildren().addAll(back, settings);
+        borderPane.setLeft(back);
+        borderPane.setRight(settings);
+        root.setTop(borderPane);
+
     }
 
     private void animation(int index) {
