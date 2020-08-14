@@ -7,9 +7,6 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -26,8 +23,8 @@ public class Menu extends Parent {
         scene = new Scene(root, 800, 600);
         start = Helper.gameButton("start new game", 300, 320);
         settings = Helper.gameButton("", "settings", 360, 150);
-//        MediaView mediaView = startSong();
-        root.getChildren().addAll(start, settings);
+        MediaView mediaView = startSong();
+        root.getChildren().addAll(start, settings, mediaView);
         handleButtons();
     }
 
@@ -41,7 +38,7 @@ public class Menu extends Parent {
         return new MediaView(mediaPlayer);
     }
 
-    public static Menu getInstance(){
+    public static Menu getInstance() {
         return instance;
     }
 

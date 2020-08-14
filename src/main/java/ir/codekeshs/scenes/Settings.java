@@ -37,11 +37,11 @@ public class Settings extends Parent {
         Settings.mediaPlayer = mediaPlayer;
     }
 
-    public static Settings getInstance(){
+    public static Settings getInstance() {
         return instance;
     }
 
-    public void makeStage(){
+    public void makeStage() {
         Stage settings = new Stage();
         settings.initStyle(StageStyle.UTILITY);
         settings.setTitle("Settings");

@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -108,7 +107,7 @@ public class Game extends Parent {
             } else {
                 text = "You Lost!\nThe answer was " + answer;
             }
-            pane.getChildren().add(Helper.gameText(text,20,200,300, Color.BLUE));
+            pane.getChildren().add(Helper.gameText(text, 20, 200, 300, Color.BLUE));
             AnimationTimer animationTimer = new AnimationTimer() {
                 private final long time = System.currentTimeMillis();
                 private boolean sceneSet = false;
