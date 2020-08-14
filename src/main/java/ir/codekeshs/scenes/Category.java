@@ -34,7 +34,7 @@ public class Category extends Parent {
                     Button button = new Button("", new ImageView(new Image(
                             new FileInputStream(url + number + ".png"))));
                     root.add(button, i, j);
-                    button.setOnAction(e -> getStage().setScene(new Game("cat").getScene()));
+                    button.setOnAction(e -> getStage().setScene(new Game(Helper.getCat(number)).getScene()));
                 }
             }
         } catch (FileNotFoundException e) {
